@@ -10,10 +10,18 @@ public class AuthController
 {
     [FunctionName("auth")]
     public static async Task<IActionResult> Run(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)]
         HttpRequestMessage req)
     {
-        return new OkObjectResult("hello");
+        var result = "no body";
+        if (req.Content != null)
+        {
+            var body = await req.Content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(body))
+            {
+                result = body;
+            }
+        }
+        return new OkObjectResult(result);
     }
-
 }
