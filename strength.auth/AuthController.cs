@@ -13,7 +13,7 @@ public class AuthController
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]
         HttpRequestMessage req)
     {
-        return new OkResult();
+        return new OkObjectResult("hello");
     }
 
 }
